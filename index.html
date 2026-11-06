@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PV Roof String — Проєктування та розрахунок СЕС</title>
+  <title>PV Roof String — by g0z</title>
   <style>
     :root {
       --bg: #0b1120;
       --card: #151f32;
       --amber: #f59e0b;
       --cyan: #38bdf8;
+      --green: #10b981;
       --text: #f8fafc;
       --muted: #94a3b8;
     }
@@ -22,47 +23,85 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px;
+      padding: 28px 18px 44px;
       line-height: 1.6;
     }
     .container {
-      max-width: 760px;
+      max-width: 780px;
       width: 100%;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .dev-tag {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--cyan);
+      letter-spacing: 0.4px;
+    }
+    .lang-switcher {
+      display: flex;
+      gap: 6px;
+      background: rgba(21, 31, 50, 0.85);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .lang-btn.active {
+      background: var(--amber);
+      color: #000000;
     }
     .hero {
       text-align: center;
       padding: 36px 24px;
       background: var(--card);
-      border: 1px solid rgba(245, 158, 11, 0.25);
+      border: 1px solid rgba(245, 158, 11, 0.28);
       border-radius: 24px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-      margin-bottom: 28px;
+      margin-bottom: 22px;
     }
     .badge {
       display: inline-block;
       background: rgba(245, 158, 11, 0.15);
       color: var(--amber);
       font-weight: 700;
-      font-size: 13px;
+      font-size: 12px;
       padding: 6px 14px;
       border-radius: 999px;
-      letter-spacing: 0.5px;
-      margin-bottom: 16px;
+      letter-spacing: 0.6px;
+      margin-bottom: 14px;
     }
     h1 {
-      font-size: 32px;
+      font-size: 34px;
       margin-bottom: 12px;
       color: #ffffff;
     }
     .subtitle {
       color: var(--muted);
       font-size: 16px;
-      max-width: 560px;
+      max-width: 580px;
       margin: 0 auto 24px;
     }
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       background: var(--amber);
       color: #000000;
@@ -79,8 +118,9 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 16px;
+      margin-bottom: 22px;
     }
     .feature {
       background: var(--card);
@@ -97,8 +137,45 @@
       color: var(--muted);
       font-size: 14px;
     }
+    .donate-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(56, 189, 248, 0.08));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 22px;
+      padding: 26px 24px;
+      text-align: center;
+    }
+    .donate-card h2 {
+      font-size: 20px;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .donate-card p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 540px;
+      margin: 0 auto 18px;
+    }
+    .btn-donate {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #0b1120;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn-donate:hover {
+      transform: translateY(-2px);
+      background: var(--amber);
+      color: #000000;
+    }
     footer {
-      margin-top: 36px;
+      margin-top: 34px;
       text-align: center;
       color: var(--muted);
       font-size: 13px;
@@ -107,36 +184,150 @@
 </head>
 <body>
   <div class="container">
+    <div class="topbar">
+      <div class="dev-tag">⚡ Developer: g0z</div>
+      <div class="lang-switcher">
+        <button class="lang-btn" onclick="setLang('uk')" id="btn-uk">UA</button>
+        <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+        <button class="lang-btn" onclick="setLang('pl')" id="btn-pl">PL</button>
+        <button class="lang-btn" onclick="setLang('de')" id="btn-de">DE</button>
+        <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
+      </div>
+    </div>
+
     <div class="hero">
-      <div class="badge">☀️ SOLAR ENGINEERING TOOLKIT</div>
+      <div class="badge" id="t-badge">☀️ SOLAR ENGINEERING TOOLKIT</div>
       <h1>PV Roof String</h1>
-      <p class="subtitle">
-        Інженерний інструмент для розрахунку сонячних електростанцій (СЕС),
-        розкладки фотомодулів на даху, AR-трекінгу траєкторії сонця та генерації PDF-звітів.
-      </p>
-      <a class="btn" href="https://play.google.com/store/apps/details?id=com.aistudio.pvroofstring.ejtoia" target="_blank" rel="noopener">
-        ▶ Завантажити з Google Play
-      </a>
+      <p class="subtitle" id="t-subtitle"></p>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.aistudio.pvroofstring.ejtoia" target="_blank" rel="noopener" id="t-play-btn"></a>
     </div>
 
     <div class="grid">
       <div class="feature">
-        <h3>📐 Дах та Фасад</h3>
-        <p>Вимірювання кута нахилу і азимута схилу, побудова геометрії даху за фото та автоматична розкладка панелей.</p>
+        <h3 id="t-f1-title"></h3>
+        <p id="t-f1-desc"></p>
       </div>
       <div class="feature">
-        <h3>☀️ AR Сонце</h3>
-        <p>Доповнена реальність траєкторії руху сонця (літнє і зимове сонцестояння) через камеру смартфона та 2D-діаграма.</p>
+        <h3 id="t-f2-title"></h3>
+        <p id="t-f2-desc"></p>
       </div>
       <div class="feature">
-        <h3>🛰️ Карта СЕС і PDF</h3>
-        <p>Супутникова прив'язка об'єкта, річний прогноз генерації за місяцями та миттєвий експорт технічного паспорта у PDF.</p>
+        <h3 id="t-f3-title"></h3>
+        <p id="t-f3-desc"></p>
       </div>
     </div>
 
+    <div class="donate-card">
+      <h2 id="t-donate-title"></h2>
+      <p id="t-donate-desc"></p>
+      <a class="btn-donate" id="t-donate-btn" href="https://send.monobank.ua/jar/6iAFhaKZCQ" target="_blank" rel="noopener"></a>
+    </div>
+
     <footer>
-      © 2026 GozyaUA • PV Roof String
+      © 2026 <strong>g0z</strong> • PV Roof String
     </footer>
   </div>
+
+  <script>
+    const DONATE_URL = "https://send.monobank.ua/jar/6iAFhaKZCQ";
+
+    const i18n = {
+      uk: {
+        subtitle: "Інженерний інструмент для розрахунку сонячних електростанцій (СЕС), розкладки фотомодулів на даху, AR-трекінгу траєкторії сонця та генерації PDF-звітів.",
+        playBtn: "▶ Завантажити з Google Play",
+        f1Title: "📐 Дах та Фасад",
+        f1Desc: "Вимірювання кута нахилу і азимута схилу, побудова геометрії даху за фото та автоматична розкладка панелей.",
+        f2Title: "☀️ AR Сонце",
+        f2Desc: "Доповнена реальність траєкторії руху сонця (літнє і зимове сонцестояння) через камеру смартфона та 2D-діаграма.",
+        f3Title: "🛰️ Карта СЕС і PDF",
+        f3Desc: "Супутникова прив'язка об'єкта, річний прогноз генерації за місяцями та миттєвий експорт технічного паспорта у PDF.",
+        donateTitle: "💛 Допомога в розвитку проєкту",
+        donateDesc: "Додаток створюється та розвивається незалежним розробником g0z. Якщо PV Roof String допомагає вам у роботі, ви можете підтримати розвиток нових функцій донатом.",
+        donateBtn: "🫙 Підтримати на Банку"
+      },
+      en: {
+        subtitle: "Professional engineering toolkit for solar PV calculation, roof module layout, AR sun trajectory tracking, and technical PDF report generation.",
+        playBtn: "▶ Get it on Google Play",
+        f1Title: "📐 Roof & Facade",
+        f1Desc: "Measure roof pitch and azimuth, map 4-corner roof geometry over photos, and automatically calculate PV panel layout.",
+        f2Title: "☀️ AR Sun Tracker",
+        f2Desc: "Live Augmented Reality solar trajectory (summer & winter solstices) through your camera plus 2D polar sky dome.",
+        f3Title: "🛰️ Solar Map & PDF",
+        f3Desc: "Satellite location pinning, monthly solar yield estimation, and instant technical PDF report export.",
+        donateTitle: "💛 Support Project Development",
+        donateDesc: "PV Roof String is built and maintained by independent developer g0z. If this app helps your solar projects, consider supporting future updates.",
+        donateBtn: "☕ Support the Project"
+      },
+      pl: {
+        subtitle: "Inżynierskie narzędzie do obliczeń instalacji fotowoltaicznych (PV), rozmieszczania paneli na dachu, śledzenia słońca w AR i generowania raportów PDF.",
+        playBtn: "▶ Pobierz z Google Play",
+        f1Title: "📐 Dach i Fasada",
+        f1Desc: "Pomiar kąta nachylenia i azymutu połaci, geometria dachu na zdjęciu oraz automatyczne rozmieszczenie modułów PV.",
+        f2Title: "☀️ AR Słońce",
+        f2Desc: "Rzeczywistość rozszerzona trajektorii słońca (przesilenie letnie i zimowe) przez kamerę telefonu oraz wykres 2D.",
+        f3Title: "🛰️ Mapa PV i PDF",
+        f3Desc: "Lokalizacja satelitarna obiektu, roczna prognoza uzysku energii oraz szybki eksport raportu technicznego do PDF.",
+        donateTitle: "💛 Wsparcie rozwoju projektu",
+        donateDesc: "Aplikacja jest rozwijana przez niezależnego twórcę g0z. Jeśli PV Roof String pomaga Ci w pracy, możesz wesprzeć dalszy rozwój projektu.",
+        donateBtn: "☕ Wesprzyj projekt"
+      },
+      de: {
+        subtitle: "Ingenieur-Werkzeug für Photovoltaik-Berechnungen, Dach-Modulbelegung, AR-Sonnenbahnverfolgung und technische PDF-Berichte.",
+        playBtn: "▶ Jetzt bei Google Play",
+        f1Title: "📐 Dach & Fassade",
+        f1Desc: "Messung von Dachneigung und Azimut, Dachgeometrie per Foto und automatische PV-Modulbelegung.",
+        f2Title: "☀️ AR-Sonnenverlauf",
+        f2Desc: "Augmented-Reality-Sonnenbahn (Sommer- & Wintersonnenwende) über die Smartphone-Kamera sowie 2D-Polardiagramm.",
+        f3Title: "🛰️ PV-Karte & PDF",
+        f3Desc: "Satelliten-Standortbestimmung, monatliche Ertragsprognose und sofortiger PDF-Projektbericht.",
+        donateTitle: "💛 Projektentwicklung unterstützen",
+        donateDesc: "PV Roof String wird vom unabhängigen Entwickler g0z entwickelt. Wenn Ihnen die App bei der Arbeit hilft, können Sie die Weiterentwicklung unterstützen.",
+        donateBtn: "☕ Projekt unterstützen"
+      },
+      es: {
+        subtitle: "Herramienta de ingeniería para el cálculo de sistemas solares fotovoltaicos, diseño de paneles en tejados, trayectoria solar en AR e informes PDF.",
+        playBtn: "▶ Disponible en Google Play",
+        f1Title: "📐 Tejado y Fachada",
+        f1Desc: "Medición de inclinación y acimut, geometría del tejado sobre foto y distribución automática de módulos solares.",
+        f2Title: "☀️ Sol en AR",
+        f2Desc: "Realidad aumentada de la trayectoria solar (solsticios de verano e invierno) con la cámara y diagrama polar 2D.",
+        f3Title: "🛰️ Mapa Solar y PDF",
+        f3Desc: "Ubicación satelital del proyecto, estimación mensual de generación y exportación instantánea de informes técnicos en PDF.",
+        donateTitle: "💛 Apoyar el desarrollo del proyecto",
+        donateDesc: "PV Roof String es desarrollado por el creador independiente g0z. Si la aplicación te ayuda en tu trabajo, puedes apoyar su desarrollo con una donación.",
+        donateBtn: "☕ Apoyar el proyecto"
+      }
+    };
+
+    function setLang(lang) {
+      const t = i18n[lang] || i18n.en;
+      document.documentElement.lang = lang;
+      document.getElementById("t-subtitle").textContent = t.subtitle;
+      document.getElementById("t-play-btn").textContent = t.playBtn;
+      document.getElementById("t-f1-title").textContent = t.f1Title;
+      document.getElementById("t-f1-desc").textContent = t.f1Desc;
+      document.getElementById("t-f2-title").textContent = t.f2Title;
+      document.getElementById("t-f2-desc").textContent = t.f2Desc;
+      document.getElementById("t-f3-title").textContent = t.f3Title;
+      document.getElementById("t-f3-desc").textContent = t.f3Desc;
+      document.getElementById("t-donate-title").textContent = t.donateTitle;
+      document.getElementById("t-donate-desc").textContent = t.donateDesc;
+      const donateBtn = document.getElementById("t-donate-btn");
+      donateBtn.textContent = t.donateBtn;
+      donateBtn.href = DONATE_URL;
+
+      ["uk", "en", "pl", "de", "es"].forEach(code => {
+        document.getElementById("btn-" + code).classList.toggle("active", code === lang);
+      });
+    }
+
+    const browserLang = (navigator.language || "en").toLowerCase();
+    const detected =
+      browserLang.startsWith("uk") || browserLang.startsWith("ru") ? "uk" :
+      browserLang.startsWith("pl") ? "pl" :
+      browserLang.startsWith("de") ? "de" :
+      browserLang.startsWith("es") ? "es" : "en";
+    setLang(detected);
+  </script>
 </body>
 </html>
